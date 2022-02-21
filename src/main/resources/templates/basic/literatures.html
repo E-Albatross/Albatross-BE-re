@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2>작품 목록</h2>
+    </div>
+
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>작품명</th>
+                <th>작가</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="literature:${literatures}">
+                <td><a href="literature.html" th:href="@{/basic/literatures/{litId}(litId=${literature.id})}" th:text="${literature.id}">작품id</a></td>
+                <td><a href="literature.html" th:href="@{/basic/literatures/{litId}(litId=${literature.id})}" th:text="${literature.title}">작품명</a></td>
+                <td th:text="${literature.author}">작가</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>

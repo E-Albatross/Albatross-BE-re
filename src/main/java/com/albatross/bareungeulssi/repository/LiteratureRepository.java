@@ -6,12 +6,23 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface LiteratureRepository extends JpaRepository<Literature, Long> {
 
-    List<Literature> findByTitle(String title);
+    //List<Literature> findByTitle(String title);
     //List<Literature> findByAuthor(String author);
+    //@Query(value = "select id, title, author, plot from literature", nativeQuery = true)
+    //@Query(value = "select l from Literature l")
     List<Literature> findAll();
-    @Query("select l from Literature l where l.author like %:author% order by l.id")
+
+    //@Query("select l from Literature l where l.author like %:author% order by l.id")
     List<Literature> findByAuthor(@Param("author") String author);
+
+    //@Query("select l from Literature l where l.title like %:title% order by l.id")
+    Literature findByTitle(@Param("title") String title);
+
+    //@Query("select l from Literature l where l.id like %:id%")
+    Optional<Literature> findById(@Param("id") Long id);
+
 }
