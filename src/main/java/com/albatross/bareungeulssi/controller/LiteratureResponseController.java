@@ -64,6 +64,7 @@ public class LiteratureResponseController {
                 "내 이름자 묻힌 언덕 위에도\n" +
                 "자랑처럼 풀이 무성할 게외다.";
         plot1 = plot1.replace("\n", "\\n");
+        plot1 = plot1.replace("'", "\'");
         literature.setPlot(plot1);
         literatureRepository.save(literature);
 
