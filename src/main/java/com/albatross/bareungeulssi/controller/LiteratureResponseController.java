@@ -1,7 +1,9 @@
 package com.albatross.bareungeulssi.controller;
 
 import com.albatross.bareungeulssi.entity.Literature;
+import com.albatross.bareungeulssi.repository.BestLiteratureRepository;
 import com.albatross.bareungeulssi.repository.LiteratureRepository;
+import com.albatross.bareungeulssi.repository.NewLiteratureRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,12 @@ public class LiteratureResponseController {
 
     @Autowired
     LiteratureRepository literatureRepository;
+
+    @Autowired
+    BestLiteratureRepository bestLiteratureRepository;
+
+    @Autowired
+    NewLiteratureRepository newLiteratureRepository;
 
     @PostConstruct
     public void init(){
@@ -66,6 +74,8 @@ public class LiteratureResponseController {
         plot1 = plot1.replace("\n", "\\n");
         plot1 = plot1.replace("'", "\'");
         literature.setPlot(plot1);
+        literature.setCheckNew(true);
+        literature.setCheckBest(false);
         literatureRepository.save(literature);
 
         String plot2 = "죽는 날까지 하늘을 우러러\n" +
@@ -78,7 +88,7 @@ public class LiteratureResponseController {
                 "걸어가야겠다.\n" +
                 "오늘 밤에도 별이 바람에 스치운다.";
         plot2 = plot2.replace("\n", "\\n");
-        literatureRepository.save(new Literature(2L, "서시", "윤동주", plot2));
+        literatureRepository.save(new Literature(2L, "서시", "윤동주", plot2,false, true));
     }
 
 
@@ -95,9 +105,14 @@ public class LiteratureResponseController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public String literatures(){
-        List<Literature> literatureList= literatureRepository.findAll();
+        //List<Literature> literatureList= literatureRepository.findAll();
+        List<Literature> literatureList1= literatureRepository.findByCheckNew(true);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(literatureList);
+        String json1 = gson.toJson(literatureList1);
+
+        List<Literature> literatureList2= literatureRepository.findByCheckBest(true);
+        String json2 = gson.toJson(literatureList2);
+        String json = json1+json2;
         return json;
     }
 

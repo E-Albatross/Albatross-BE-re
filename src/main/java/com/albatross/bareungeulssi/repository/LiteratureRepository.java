@@ -2,6 +2,7 @@ package com.albatross.bareungeulssi.repository;
 
 import com.albatross.bareungeulssi.entity.Literature;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -24,5 +25,11 @@ public interface LiteratureRepository extends JpaRepository<Literature, Long> {
 
     //@Query("select l from Literature l where l.id like %:id%")
     Optional<Literature> findById(@Param("id") Long id);
+
+    //@Query("select l from Literature l where l.checkNew like %:checkNew%")
+    List<Literature> findByCheckNew(@Param("checkNew")Boolean checkNew);
+
+    //@Query("select l from Literature l where l.checkBest like %:checkBest%")
+    List<Literature> findByCheckBest(@Param("checkBest")Boolean checkBest);
 
 }

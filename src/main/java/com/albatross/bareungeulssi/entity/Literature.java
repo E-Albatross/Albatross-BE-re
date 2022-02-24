@@ -28,4 +28,10 @@ public class Literature {
     @Column(name="plot", nullable = false)
     private String plot;
 
+    @Column(name="checkNew")
+    private Boolean checkNew; //new인지
+
+    @Column(name="checkBest")
+    private Boolean checkBest; //best인지
+
 }

@@ -10,4 +10,6 @@ public class LiteratureDto {
     private String title;
     private String author;
     private String plot;
+    private Boolean check1;
+    private Boolean check2;
 }
