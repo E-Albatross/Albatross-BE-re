@@ -1,17 +1,11 @@
 package com.albatross.bareungeulssi.controller;
 
 import com.albatross.bareungeulssi.entity.Literature;
-import com.albatross.bareungeulssi.repository.BestLiteratureRepository;
 import com.albatross.bareungeulssi.repository.LiteratureRepository;
-import com.albatross.bareungeulssi.repository.NewLiteratureRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -25,12 +19,6 @@ public class LiteratureResponseController {
 
     @Autowired
     LiteratureRepository literatureRepository;
-
-    @Autowired
-    BestLiteratureRepository bestLiteratureRepository;
-
-    @Autowired
-    NewLiteratureRepository newLiteratureRepository;
 
     @PostConstruct
     public void init(){
