@@ -1,4 +1,4 @@
-package com.albatross.bareungeulssi.dto;
+package com.albatross.bareungeulssi.domain.dto;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,7 @@
-package com.albatross.bareungeulssi.controller;
+package com.albatross.bareungeulssi.web.controller;
 
-import com.albatross.bareungeulssi.entity.Literature;
-import com.albatross.bareungeulssi.repository.LiteratureRepository;
+import com.albatross.bareungeulssi.domain.entity.Literature;
+import com.albatross.bareungeulssi.domain.repository.LiteratureRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;

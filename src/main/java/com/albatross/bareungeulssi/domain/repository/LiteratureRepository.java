@@ -1,9 +1,7 @@
-package com.albatross.bareungeulssi.repository;
+package com.albatross.bareungeulssi.domain.repository;
 
-import com.albatross.bareungeulssi.entity.Literature;
+import com.albatross.bareungeulssi.domain.entity.Literature;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;

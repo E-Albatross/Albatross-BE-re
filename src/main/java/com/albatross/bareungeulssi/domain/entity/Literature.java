@@ -1,4 +1,4 @@
-package com.albatross.bareungeulssi.entity;
+package com.albatross.bareungeulssi.domain.entity;
 
 import lombok.*;
 

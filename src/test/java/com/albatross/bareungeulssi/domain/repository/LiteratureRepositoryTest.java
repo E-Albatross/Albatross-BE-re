@@ -1,15 +1,11 @@
-package com.albatross.bareungeulssi.repository;
+package com.albatross.bareungeulssi.domain.repository;
 
-import com.albatross.bareungeulssi.entity.Literature;
+import com.albatross.bareungeulssi.domain.entity.Literature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class LiteratureRepositoryTest {
