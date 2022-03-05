@@ -1,9 +1,14 @@
 package com.albatross.bareungeulssi.domain.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@Getter
+@Setter
 public class MemberDto {
     //private Long id; //회원 번호
 

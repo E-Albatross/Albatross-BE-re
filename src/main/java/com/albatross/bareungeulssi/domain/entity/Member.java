@@ -7,7 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name="member", uniqueConstraints = {@UniqueConstraint(name="loginId_UNIQUE", columnNames = {"loginId"})})
+@Table(name="member")
 @Getter
 @Setter
 @ToString
@@ -23,10 +23,16 @@ public class Member {
     @Column(name="loginId", nullable = false)
     private String loginId; //사용자의 id
 
-    @Column(name="password")
+    @Column(name="password", nullable = false)
     private String password; //사용자 비밀번호
 
-    @Column(name="email")
+    @Column(name="email", nullable = false)
     private String email; //사용자 이메일 주소, 이메일 인증할 때 사용
+
+    public Member(String loginId, String password, String email){
+        this.loginId = loginId;
+        this.password = password;
+        this.email = email;
+    }
 
 }
