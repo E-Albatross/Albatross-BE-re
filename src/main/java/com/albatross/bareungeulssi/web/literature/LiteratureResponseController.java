@@ -1,4 +1,4 @@
-package com.albatross.bareungeulssi.web.controller;
+package com.albatross.bareungeulssi.web.literature;
 
 import com.albatross.bareungeulssi.domain.entity.Literature;
 import com.albatross.bareungeulssi.domain.repository.LiteratureRepository;
