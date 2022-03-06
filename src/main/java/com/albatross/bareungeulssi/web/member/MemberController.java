@@ -7,13 +7,11 @@ import com.albatross.bareungeulssi.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,9 +31,22 @@ public class MemberController {
         return "members/addMemberForm";
     }
 
+    @GetMapping("/user-emails/{email}/exists")
+    public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email){
+        return ResponseEntity.ok(memberService.checkEmailDuplicate(email));
+    }
+
+    @GetMapping("/user-loginIds/{loginId}/exists")
+    public ResponseEntity<Boolean> checkLoginIdDuplicate(@PathVariable String loginId){
+        return ResponseEntity.ok(memberService.checkLoginIdDuplicate(loginId));
+    }
+
     @PostMapping("/add") //회원가입 정보 넘기기
     public String save(@Validated @ModelAttribute("memberdto") MemberDto memberDto, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
+            return "members/addMemberForm";
+        }
+        if(!memberService.checkPassword(memberDto.getPassword(), memberDto.getPasswordCheck())){
             return "members/addMemberForm";
         }
 
