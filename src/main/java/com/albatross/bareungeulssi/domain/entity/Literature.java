@@ -24,9 +24,12 @@ public class Literature {
     @Column(name="author", nullable = false, length = 45)
     private String author;
 
-    @Lob
-    @Column(name="plot", nullable = false)
-    private String plot;
+//    @Lob
+//    @Column(name="plot", nullable = false)
+//    private String plot;
+
+    @Column(name="link", length = 255)
+    private String link; //s3에 있는 파일 주소
 
     @Column(name="checkNew")
     private Boolean checkNew; //new인지
