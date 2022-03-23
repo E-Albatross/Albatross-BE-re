@@ -37,6 +37,5 @@ out/
 .vscode/
 
 ### application-aws.properties ###
-application-aws.properties
-application.properties
+application.yml
 
