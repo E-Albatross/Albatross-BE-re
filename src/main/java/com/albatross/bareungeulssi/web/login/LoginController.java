@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @Slf4j
-@Controller
+//@Controller
 @RequiredArgsConstructor
 public class LoginController {
 
