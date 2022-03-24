@@ -62,7 +62,7 @@ public class LiteratureResponseController {
         plot1 = plot1.replace("\n", "\\n");
         plot1 = plot1.replace("'", "\'");
         literature.setPlot(plot1);
-        literature.setLink("https://albatrossliteraturestorage.s3.ap-northeast-2.amazonaws.com/%EC%9C%A4%EB%8F%99%EC%A3%BC-%EB%B3%84%ED%97%A4%EB%8A%94%EB%B0%A4-%ED%95%98%EB%8A%98%EA%B3%BC_%EB%B0%94%EB%9E%8C%EA%B3%BC_%EB%B3%84%EA%B3%BC_%EC%8B%9C.txt");
+        literature.setLink("https://albatrossstorage.s3.ap-northeast-2.amazonaws.com/literature/%EC%9C%A4%EB%8F%99%EC%A3%BC-%EB%B3%84%ED%97%A4%EB%8A%94%EB%B0%A4.txt");
         literature.setCheckNew(true);
         literature.setCheckBest(false);
         literatureRepository.save(literature);
