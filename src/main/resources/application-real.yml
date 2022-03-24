@@ -1,0 +1,7 @@
+spring:
+  config:
+    imports: classpath:/real-db.yml
+  session:
+    store-type: jdbc
+server:
+  port: 8000
