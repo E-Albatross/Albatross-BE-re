@@ -5,7 +5,7 @@ import com.albatross.bareungeulssi.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 @RequiredArgsConstructor
 public class LoginService {
 

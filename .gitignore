@@ -38,4 +38,5 @@ out/
 
 ### application-aws.properties ###
 application.yml
+a.yml
 
