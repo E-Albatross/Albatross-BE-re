@@ -5,6 +5,8 @@ jdk:
 branches:
   only:
     - master #master branch에 push될 때만 ci
+before_install:
+  - chmod +x gradlew
 
 #TRAVIS-CI 서버의 HOME
 cache:
