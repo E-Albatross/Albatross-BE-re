@@ -17,9 +17,9 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r Albatross-BE-re *
+  - zip -r bareungeulssi *
   - mkdir -p deploy
-  - mv Albatross-BE-re.zip deploy/Albatross-BE-re.zip
+  - mv bareungeulssi.zip deploy/bareungeulssi.zip
 
 deploy:
   - provider: s3
