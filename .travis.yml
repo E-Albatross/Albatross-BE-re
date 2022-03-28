@@ -1,0 +1,42 @@
+language: java
+jdk:
+  - openjdk11
+
+branches:
+  only:
+    - master #master branch에 push될 때만 ci
+before_install:
+  - chmod +x gradlew
+
+#TRAVIS-CI 서버의 HOME
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+script: "./gradlew clean build"
+
+before_deploy:
+  - zip -r Albatross-BE-re *
+  - mkdir -p deploy
+  - mv Albatross-BE-re.zip deploy/Albatross-BE-re.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: albatross-springboot-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: public_read
+    local_dir: deploy
+    wait-until-deployed: true
+    on:
+      repo: E-Albatross/Albatross-BE-re
+      branch: master
+
+#CI 실행 완료 시 메일로 알람
+notifications:
+  email:
+    recipients:
+      - mkkw2047@gmail.com
