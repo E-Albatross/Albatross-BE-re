@@ -1,8 +1,6 @@
 server:
-  address: 172.31.34.11
+  #address: 172.31.34.11
   port: 8000
-  tomcat:
-    uri-encoding: UTF-8
 
 spring:
   profiles:
