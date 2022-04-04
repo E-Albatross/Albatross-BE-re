@@ -3,9 +3,10 @@ package com.albatross.bareungeulssi.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
-@Entity
+@Entity(name="record")
 @Table(name="record")
 @Getter
 @Setter
@@ -19,18 +20,27 @@ public class Record { //쓴 거 저장
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name="loginId", nullable = false)
+    @Column(name="login_id", nullable = false)
     private String loginId;
 
-    @Column(name="literatureId", nullable = false)
-    private String literatureId;
+    @Column(name="literature_id", nullable = false)
+    private Long literatureId;
 
-    @Column(name = "imageId")
-    private String imageId;
+    @Column(name = "image_name")
+    private String imageName;
 
     @Column(name="date")
-    private Date date;
+    private LocalDateTime date;
 
     @Column(name="score")
     private Integer score;
+
+    @Builder
+    public Record(String loginId, Long literatureId, String imageName, LocalDateTime date, Integer score){
+        this.loginId = loginId;
+        this.literatureId = literatureId;
+        this.imageName=imageName;
+        this.date=date;
+        this.score=score;
+    }
 }

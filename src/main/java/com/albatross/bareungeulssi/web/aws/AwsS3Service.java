@@ -24,6 +24,8 @@ public class AwsS3Service {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
+    public String key;
+
     public AwsS3 upload(MultipartFile multipartFile, String dirName) throws IOException {
         File file = convertMultipartFileToFile(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File convert fail"));
@@ -32,7 +34,8 @@ public class AwsS3Service {
     }
 
     private AwsS3 upload(File file, String dirName) {
-        String key = randomFileName(file, dirName);
+        //String key = randomFileName(file, dirName);
+        key = randomFileName(file, dirName);
         String path = putS3(file, key);
         removeFile(file);
 
@@ -55,7 +58,7 @@ public class AwsS3Service {
 
     private String getS3(String bucket, String fileName) {
         return amazonS3.getUrl(bucket, fileName).toString();
-    }
+    } //조회
 
     private void removeFile(File file) {
         file.delete();
