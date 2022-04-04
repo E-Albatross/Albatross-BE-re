@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/s3")
+@RequestMapping("/image/s3")
 @RequiredArgsConstructor
 public class AwsS3Controller {
     private final AwsS3Service awsS3Service;

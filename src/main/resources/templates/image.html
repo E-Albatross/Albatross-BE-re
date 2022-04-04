@@ -23,7 +23,7 @@
         const formData = new FormData();
         formData.append("file", file.files[0]);
 
-        fetch("/s3/resource", {
+        fetch("image/s3/resource", { //url 변경
             method : "POST"
             , body : formData
         })
@@ -42,7 +42,7 @@
         const formData = new FormData();
         formData.append("key", key);
 
-        fetch("/s3/resource", {
+        fetch("image/s3/resource", { //url 변경
             method : "DELETE"
             , body : formData
         })

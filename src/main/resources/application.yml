@@ -7,6 +7,10 @@ spring:
     active: real
     #active: local
     #include: oauth
+  config:
+    import:
+      - classpath:s3.yml
+
   jpa:
     properties:
       hibernate:
