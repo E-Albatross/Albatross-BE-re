@@ -21,24 +21,24 @@ public class RecordController {
     RecordRepository recordRepository;
 
     //로그인한 사용자 아이디, 문학작품 아이디, 이미지 주소, 점수를 이용해서 record 테이블에 저장
-    @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/{loginId}/{literatureId}/{imageName}/{score}")
-    public String saveRecord(@PathVariable String loginId, @PathVariable Long literatureId, @PathVariable String imageName, @PathVariable Integer score){
-        //Optional<Literature> optionalLiterature  = literatureRepository.findById(id);
-        //Literature literature = optionalLiterature.get();
-        String imageS3Id = imageName;
-        Record record = Record.builder()
-                                .loginId(loginId)
-                                .literatureId(literatureId)
-                                .imageName(imageName)
-                                .score(score)
-                                .date(LocalDateTime.now())
-                                .build();
-        recordRepository.save(record);
-
-        //main으로 리다이렉션
-        return "redirect:/";
-    }
+//    @ResponseStatus(HttpStatus.OK)
+//    @PostMapping("/{loginId}/{literatureId}/{imageName}/{score}")
+//    public String saveRecord(@PathVariable String loginId, @PathVariable Long literatureId, @PathVariable String imageName, @PathVariable Integer score){
+//        String imageS3Id = imageName;
+//        Record record = Record.builder()
+//                                .loginId(loginId)
+//                                .literatureId(literatureId)
+//                                .imageName(imageName)
+//                                .score(score)
+//                                .date(LocalDateTime.now())
+//                                .build();
+//        recordRepository.save(record);
+//
+//        //main으로 리다이렉션
+////        return "redirect:/";
+//        //resource로 이동시키기 - s3 저장 - redirect 말고 다른 방법?
+//        return "redirect:/image/s3/resource";
+//    }
 
     //로그인한 사용자 아이디 기준 조회
     @GetMapping("/{loginId}")

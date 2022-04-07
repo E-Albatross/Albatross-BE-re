@@ -38,7 +38,7 @@ public class LiteratureResponseController {
         literatureRepository.save(new Literature(6L, "고향집", "윤동주"));
         literatureRepository.save(new Literature(7L, "먼 후일", "김소월"));
         literatureRepository.save(new Literature(8L, "코스모스", "백국희"));
-        literatureRepository.save(new Literature(9L, "동짓달 기나긴 밤을", "황진이"));
+        literatureRepository.save(new Literature(9L, "진달래꽃", "김소월"));
         literatureRepository.save(new Literature(10L, "호수1", "정지용"));
         literatureRepository.save(new Literature(11L, "호수2", "정지용"));
         literatureRepository.save(new Literature(12L, "향수", "정지용"));
