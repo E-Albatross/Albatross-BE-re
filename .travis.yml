@@ -25,7 +25,7 @@ deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
-    bucket: albatross-springboot-build
+    bucket: albatross-backend
     region: ap-northeast-2
     skip_cleanup: true
     acl: private
@@ -38,7 +38,7 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
     secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
-    bucket: albatross-springboot-build # S3 버킷 이름
+    bucket: albatross-backend # S3 버킷 이름
     key: bareungeulssi.zip # 빌드 파일을 압축해서 전달
     bundle_type: zip
     application: bareungeulssi-springboot-webservice # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
