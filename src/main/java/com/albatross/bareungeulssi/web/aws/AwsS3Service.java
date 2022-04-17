@@ -35,7 +35,7 @@ public class AwsS3Service {
 
     private AwsS3 upload(File file, String dirName) {
         //String key = randomFileName(file, dirName);
-        key = randomFileName(file, dirName);
+        key = fileName(file, dirName);
         String path = putS3(file, key);
         removeFile(file);
 
@@ -46,8 +46,8 @@ public class AwsS3Service {
                 .build();
     }
 
-    private String randomFileName(File file, String dirName) {
-        return dirName + "/" + UUID.randomUUID() + file.getName();
+    private String fileName(File file, String dirName) {
+        return dirName + "/" + file.getName(); //프론트에서 자동 생성되므로 UUID사용x
     }
 
     private String putS3(File uploadFile, String fileName) {
