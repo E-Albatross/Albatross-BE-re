@@ -1,0 +1,8 @@
+#codedeploy 환경설정
+version: 0.0
+os: linux
+files:
+  - source:  /
+    destination: /home/ec2-user/app/s3/zip
+    overwrite: yes
+
