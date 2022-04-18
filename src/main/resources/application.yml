@@ -1,6 +1,7 @@
 server:
   #address: 172.31.34.11
-  port: 8000
+  #port: 8000
+  port: 443 #https
 
 spring:
   profiles:
