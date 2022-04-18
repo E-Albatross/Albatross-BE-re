@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
-    @GetMapping("/")
+    //@GetMapping("/")
     public String home() {
         return "home";
     }
 
-    //@GetMapping("/")
+    @GetMapping("/")
     public String homeLoginArgumentResolver(@Login Member loginMember, Model model){
 
         //로그인
