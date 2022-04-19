@@ -23,7 +23,7 @@
         const formData = new FormData();
         formData.append("file", file.files[0]);
 
-        fetch("image/s3/resource/test/1/image.jpg/82", { //url 변경 - image/s3/resource/{loginId}/{literatureId}/{imageName}/{score} 인데 테스트용으로 넣어놓은 것
+        fetch("image", { //url 변경 - image/s3/resource/{loginId}/{literatureId}/{imageName}/{score}
             method : "POST"
             , body : formData
         })
