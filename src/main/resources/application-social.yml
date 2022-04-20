@@ -1,0 +1,13 @@
+# apple login 관련
+apple:
+  auth:
+    url: https://appleid.apple.com
+  team:
+    id: MMZ5SUPVPM
+  redirect:
+    url: https://bareun-geulssi.com/login/oauth/apple
+  client:
+    id: BareunGeulssiService
+  key:
+    id: J8VZ223D7R
+    path: static/AuthKey_J8VZ223D7R.p8
