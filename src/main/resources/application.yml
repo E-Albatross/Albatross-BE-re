@@ -10,7 +10,10 @@ spring:
     #active: local
     #include: oauth
   config:
-    imports: classpath:/s3.yml
+    imports: classpath:/s3.yml #, classpath:/application-social.properties -ec2 배포시엔 이것 활성화 #ec2에 따로 저장하고 deploy.sh 끝단에 속성파일 포함시키기
+    #import:
+      #- classpath:/s3.yml
+      #- classpath:/application-social.properties
 
   jpa:
     properties:
