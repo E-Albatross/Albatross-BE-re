@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AwsS3Config {
     /**
-     * ec2.yml에서 access-key와 secret-key 가져오기 해야됨
+     * s3.yml에서 access-key와 secret-key 가져오기 해야됨
      */
     @Value("${cloud.aws.credentials.access-key}")
     private String accessKey;
