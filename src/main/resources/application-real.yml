@@ -8,4 +8,4 @@ logging:
     com:
       amazonaws:
         util:
-          EC2MetadataUtils: debug
+          EC2MetadataUtils: error
