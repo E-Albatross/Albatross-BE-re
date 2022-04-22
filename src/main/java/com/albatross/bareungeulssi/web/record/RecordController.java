@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -43,10 +44,10 @@ public class RecordController {
     //로그인한 사용자 아이디 기준 조회
     @GetMapping("/{loginId}")
     public String findRecord(@PathVariable String loginId){
-        Optional<Record> optionalRecord  = recordRepository.findByLoginId(loginId);
-        Record record = optionalRecord.get();
+        Optional <List<Record>> optionalRecord  = recordRepository.findByLoginId(loginId); //Optional<Record> -> Optional<List<Record>>
+        List<Record> records = optionalRecord.get();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(record);
+        String json = gson.toJson(records);
         return json;
     }
 }
