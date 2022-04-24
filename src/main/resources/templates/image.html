@@ -23,7 +23,8 @@
         const formData = new FormData();
         formData.append("file", file.files[0]);
 
-        fetch("image/s3/resource/test/1/test.jpg", { //TODO. url 변경 해야함- image/s3/resource/{loginId}/{literatureId}/{imageName}
+        fetch("image/s3/resource/test/1/test.jpg", { //TODO. url 변경 해야함- image/s3/resource/{RDS에 저장할 loginId}/{RDS에 저장할 literatureId}/{RDS에 저장할 imageName}
+
             method : "POST"
             , body : formData
         })
