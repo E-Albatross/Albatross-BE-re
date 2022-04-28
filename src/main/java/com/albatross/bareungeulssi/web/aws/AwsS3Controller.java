@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/image/s3")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class AwsS3Controller {
     private final AwsS3Service awsS3Service;
 
