@@ -12,7 +12,10 @@ public class CustomRequestInterceptor implements HandlerInterceptor {
     //request URI 로그 찍기
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("{} :: {}", request.getMethod(), request.getRequestURI().toString());
+        if(request.getMethod().equals("POST")) {
+            log.info("{} :: {}", request.getMethod(), request.getRequestURI().toString());
+        }
+        //log.info("{} :: {}", request.getMethod(), request.getRequestURI().toString());
         return true;
     }
 }
