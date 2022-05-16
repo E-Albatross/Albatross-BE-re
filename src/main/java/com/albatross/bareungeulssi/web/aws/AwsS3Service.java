@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AwsS3Service {
@@ -65,8 +67,9 @@ public class AwsS3Service {
     }
 
     public Optional<File> convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
-        File file = new File(System.getProperty("user.dir") + "/" + multipartFile.getOriginalFilename());
+        File file = new File(System.getProperty("user.dir") + "/" + multipartFile.getOriginalFilename()); //File(파일명)
         //File file = new File(multipartFile.getOriginalFilename());
+        log.info("file name: {}", file.getName());
 
         if (file.createNewFile()) {
             try (FileOutputStream fos = new FileOutputStream(file)){

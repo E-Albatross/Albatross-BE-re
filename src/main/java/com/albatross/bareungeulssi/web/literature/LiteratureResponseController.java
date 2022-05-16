@@ -82,7 +82,7 @@ public class LiteratureResponseController {
 //        return "basic/literature";
 //    }
 
-    //작품 상세 - JSON으로 id, 제목, 작가, 글 리턴
+    //작품 상세 - JSON으로 id, 제목, 작가 리턴
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public String literature(@PathVariable Long id){
