@@ -33,7 +33,7 @@ public class ScoreController {
     @Autowired
     RecordRepository recordRepository;
 
-    ArrayList<Feedback> feedbacks = new ArrayList<>(); //피드백 담을 리스트
+    ArrayList<Feedback> feedbacks = new ArrayList<Feedback>(); //피드백 담을 리스트
 
     //{"score": 95, "feedback":{"0":[[x,y],1]}
     @PostMapping("/{imageName}/{literatureId}/{fontPath}")
@@ -71,7 +71,7 @@ public class ScoreController {
         ArrayList<ArrayList<Integer>> userLineThreeSyllableList = gson.fromJson(userLineThreeSyllable, (new TypeToken<ArrayList<ArrayList<Integer>>>() { }).getType()); //3번째 줄의 음절 정보 배열
 
         //1,2,3,4번째 줄 음절 리스트 모은 리스트
-        ArrayList<ArrayList<ArrayList<Integer>>> userSyllableList = new ArrayList<>();
+        ArrayList<ArrayList<ArrayList<Integer>>> userSyllableList = new ArrayList<ArrayList<ArrayList<Integer>>>();
         //List<List<List<Integer>>> userSyllableList = new ArrayList<>();
         userSyllableList.add(userLineZeroSyllableList);
         userSyllableList.add(userLineOneSyllableList);
@@ -153,7 +153,7 @@ public class ScoreController {
             feedbacks.add(new Feedback(0,-1,-1,-1));
         }
         else if(score==100){ //100점일때
-            score=100;
+            //score=100;
             feedbacks.add(new Feedback(100,-1,-1,-1));
         }
 
