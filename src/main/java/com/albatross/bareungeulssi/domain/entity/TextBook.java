@@ -1,10 +1,11 @@
 package com.albatross.bareungeulssi.domain.entity;
 
-import com.albatross.bareungeulssi.domain.converter.StringListConverter;
+import com.albatross.bareungeulssi.domain.converter.JsonStringConverter;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @Entity(name="textbook")
 @Table(name="textbook")
@@ -29,8 +30,8 @@ public class TextBook {
     private String fontPath;
 
     //교본 분석 결과 저장할 곳
-    @Convert(converter = StringListConverter.class)
-    @Column(columnDefinition = "json", name = "textbook_analysis")
-    private List<String> textBookAnalysis;
+    @Convert(converter = JsonStringConverter.class)
+    @Column(columnDefinition = "longtext", name = "textbook_analysis")
+    private Map<String, Object> textBookAnalysis;
 
 }
