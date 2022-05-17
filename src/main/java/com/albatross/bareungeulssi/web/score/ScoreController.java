@@ -37,7 +37,7 @@ public class ScoreController {
 
     //{"score": 95, "feedback":{"0":[[x,y],1]}
     @PostMapping("/{imageName}/{literatureId}/{fontPath}")
-    public String jsonList(@RequestBody List<Map<String, Object>> param, @PathVariable String imageName, @PathVariable Long literatureId, @PathVariable String fontPath){
+    public String jsonList(@RequestBody Map<String, Object> param, @PathVariable String imageName, @PathVariable Long literatureId, @PathVariable String fontPath){
         //HashMap<String, Object> result = new HashMap<String, Object>();
         /*
         [
@@ -48,8 +48,8 @@ public class ScoreController {
         */
         Gson gson = new Gson();
 
-        JsonElement elementUserSyllable = parseString(param.get(0).get("syllable").toString()); //"syllable" 키 값으로 찾기 - 음절 정보
-        JsonElement elementUserCharacter = parseString(param.get(0).get("character").toString()); //"character" 키 값으로 찾기 - 음소 정보
+        JsonElement elementUserSyllable = parseString(param.get("syllable").toString()); //"syllable" 키 값으로 찾기 - 음절 정보
+        JsonElement elementUserCharacter = parseString(param.get("character").toString()); //"character" 키 값으로 찾기 - 음소 정보
 
         //TODO. List-> ArrayList?
 
@@ -93,11 +93,11 @@ public class ScoreController {
         JsonElement textBookLineOneSyllable = parseString(textBookSyllableMap.get("1").toString()); //"1" 키로 찾기
         List<List<Integer>> textBookLineOneSyllableList = gson.fromJson(textBookLineOneSyllable, (new TypeToken<List<List<Integer>>>() { }).getType()); //1번째 줄의 음절 정보 배열
 
-        JsonElement textBookLineTwoSyllable = parseString(textBookSyllableMap.get("2").toString()); //"2" 키로 찾기
-        List<List<Integer>> textBookLineTwoSyllableList = gson.fromJson(textBookLineTwoSyllable, (new TypeToken<List<List<Integer>>>() { }).getType()); //2번째 줄의 음절 정보 배열
+        //JsonElement textBookLineTwoSyllable = parseString(textBookSyllableMap.get("2").toString()); //"2" 키로 찾기
+        //List<List<Integer>> textBookLineTwoSyllableList = gson.fromJson(textBookLineTwoSyllable, (new TypeToken<List<List<Integer>>>() { }).getType()); //2번째 줄의 음절 정보 배열
 
-        JsonElement textBookLineThreeSyllable = parseString(textBookSyllableMap.get("3").toString()); //"3" 키로 찾기
-        List<List<Integer>> textBookLineThreeSyllableList = gson.fromJson(textBookLineThreeSyllable, (new TypeToken<List<List<Integer>>>() { }).getType()); //3번째 줄의 음절 정보 배열
+        //JsonElement textBookLineThreeSyllable = parseString(textBookSyllableMap.get("3").toString()); //"3" 키로 찾기
+        //List<List<Integer>> textBookLineThreeSyllableList = gson.fromJson(textBookLineThreeSyllable, (new TypeToken<List<List<Integer>>>() { }).getType()); //3번째 줄의 음절 정보 배열
 
 
         int score=100;
@@ -108,19 +108,21 @@ public class ScoreController {
         //1. 전체적인 기울기에 유의해서 작성해보세요! : cy값으로 판단
         for(int i=0; i<4; i++) { //i번째 줄 - TODO.i<4로 바꿔야함!
             int userLineSyllableCnt = userSyllableList.get(i).size();
-            for (int j = 0; j < userLineSyllableCnt; i++) { //j번째 음절
+            for (int j = 0; j < userLineSyllableCnt; j++) { //j번째 음절
                 cyList.add(userSyllableList.get(i).get(j).get(4));
-                cyList.sort(Comparator.naturalOrder()); //오름차순 정렬
+            }
+            cyList.sort(Comparator.naturalOrder()); //오름차순 정렬
 
-                int midIdx = cyList.size()/2;
-                int mid = cyList.get(midIdx); //cy 중간값
-                log.info("middle cy: {}", mid);
+            int midIdx = cyList.size()/2;
+            int mid = cyList.get(midIdx); //cy 중간값
+            log.info("middle cy: {}", mid);
 
-                int x1 = userSyllableList.get(i).get(userLineSyllableCnt-1).get(0)+20; //마지막 음절의 x좌표 + 20
-                int y1 = userSyllableList.get(i).get(userLineSyllableCnt-1).get(4); //마지막 음절의 cy좌표
+            int x1 = userSyllableList.get(i).get(userLineSyllableCnt-1).get(0)+20; //마지막 음절의 x좌표 + 20
+            int y1 = userSyllableList.get(i).get(userLineSyllableCnt-1).get(4); //마지막 음절의 cy좌표
 
-                if(Math.abs(userLineZeroSyllableList.get(j).get(4)-mid)>=6 ||
-                        (i<userLineSyllableCnt-1 && Math.abs(userSyllableList.get(i).get(j).get(4)-userSyllableList.get(i).get(j+1).get(4))>=4)){
+            for (int j = 0; j < userLineSyllableCnt; j++) { //j번째 음절
+                if (Math.abs(userLineZeroSyllableList.get(j).get(4) - mid) >= 6 ||
+                        (i < userLineSyllableCnt - 1 && Math.abs(userSyllableList.get(i).get(j).get(4) - userSyllableList.get(i).get(j + 1).get(4)) >= 4)) {
                     score -= 3;
                     Feedback feedback = new Feedback(score, 1, x1, y1);
                     feedbacks.add(feedback);
