@@ -161,7 +161,7 @@ public class ScoreController {
             int mid = cyList.get(midIdx); //cy 중간값
             log.info("middle cy: {}", mid);
 
-            int x1 = userSyllableList.get(i).get(userLineSyllableCnt-1).get(0)+20; //마지막 음절의 x좌표 + 20
+            int x1 = userSyllableList.get(i).get(userLineSyllableCnt-1).get(0)+userSyllableList.get(i).get(userLineSyllableCnt-1).get(2)+20; //마지막 음절의 x좌표 + 20
             int y1 = userSyllableList.get(i).get(userLineSyllableCnt-1).get(4); //마지막 음절의 cy좌표
 
             for (int j = 0; j < userLineSyllableCnt; j++) { //j번째 음절
