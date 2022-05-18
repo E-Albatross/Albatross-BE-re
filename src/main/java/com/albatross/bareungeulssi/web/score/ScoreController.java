@@ -165,8 +165,8 @@ public class ScoreController {
             int y1 = userSyllableList.get(i).get(userLineSyllableCnt-1).get(4); //마지막 음절의 cy좌표
 
             for (int j = 0; j < userLineSyllableCnt; j++) { //j번째 음절
-                if (Math.abs(userSyllableList.get(i).get(j).get(4) - mid) >= 6 ||
-                        (j < userLineSyllableCnt - 1 && Math.abs(userSyllableList.get(i).get(j).get(4) - userSyllableList.get(i).get(j + 1).get(4)) >= 4)) {
+                if (Math.abs(userSyllableList.get(i).get(j).get(4) - mid) >= 8 ||
+                        (j < userLineSyllableCnt - 1 && Math.abs(userSyllableList.get(i).get(j).get(4) - userSyllableList.get(i).get(j + 1).get(4)) >= 6)) {
                     score -= 3;
                     Feedback feedback = new Feedback(score, 1, x1, y1, i);
                     feedbacks.add(feedback);
