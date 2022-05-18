@@ -168,7 +168,7 @@ public class ScoreController {
                 if (Math.abs(userSyllableList.get(i).get(j).get(4) - mid) >= 6 ||
                         (j < userLineSyllableCnt - 1 && Math.abs(userSyllableList.get(i).get(j).get(4) - userSyllableList.get(i).get(j + 1).get(4)) >= 4)) {
                     score -= 3;
-                    Feedback feedback = new Feedback(score, 1, x1, y1);
+                    Feedback feedback = new Feedback(score, 1, x1, y1, i);
                     feedbacks.add(feedback);
                     break; //기울기 피드백 하나만 생성
                 }
@@ -194,7 +194,7 @@ public class ScoreController {
                             userSyllableList.get(i).get(j-1).set(3, Math.max(userSyllableList.get(i).get(j-1).get(3), userSyllableList.get(i).get(j).get(3))); //h값
                             userSyllableList.get(i).get(j-1).set(4, userSyllableList.get(i).get(j-1).get(1) + userSyllableList.get(i).get(j-1).get(3)/2); //cy값
 
-                            userSyllableList.remove(j);
+                            userSyllableList.get(i).remove(j);
                             j--;
                         }
                         else{
@@ -248,7 +248,7 @@ public class ScoreController {
                     score -= 3;
                     int x3 = userSyllableList.get(i).get(j).get(0)+userSyllableList.get(i).get(j).get(2)/2;
                     int y3 = userSyllableList.get(i).get(j).get(1)-10;
-                    Feedback feedback = new Feedback(score, 3, x3, y3);
+                    Feedback feedback = new Feedback(score, 3, x3, y3, i);
                     feedbacks.add(feedback);
                 }
             }
@@ -262,7 +262,7 @@ public class ScoreController {
             int range = Math.min(userJamoList.get(i).size(), textBookJamoList.get(i).size());
             for(int j=0; j<range; j++){
 
-                if(userJamoList.get(i).get(j).get(2).get(0)!=textBookJamoList.get(i).get(j).get(2).get(0)){
+                if(!userJamoList.get(i).get(j).get(2).get(0).equals(textBookJamoList.get(i).get(j).get(2).get(0))){
                     continue;
                 }
 
@@ -278,7 +278,7 @@ public class ScoreController {
                       int x456 = userSyllableList.get(i).get(j).get(0)+userSyllableList.get(i).get(j).get(2)/2;
                       int y456 = userSyllableList.get(i).get(j).get(1)-10;
 
-                      Feedback feedback = new Feedback(score, k+4, x456, y456);
+                      Feedback feedback = new Feedback(score, k+4, x456, y456, i);
                       feedbacks.add(feedback);
                     }
                 }
@@ -291,11 +291,11 @@ public class ScoreController {
 
         if(score<0){ //음수일때
             score=0;
-            feedbacks.add(new Feedback(0,-1,-1,-1));
+            feedbacks.add(new Feedback(0,-1,-1,-1,-1));
         }
         else if(score==100){ //100점일때
             //score=100;
-            feedbacks.add(new Feedback(100,-1,-1,-1));
+            feedbacks.add(new Feedback(100,-1,-1,-1,-1));
         }
 
         //점수 DB에 저장
