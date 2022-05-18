@@ -19,17 +19,19 @@ public class Feedback {
     private int x;
     private int y;
     private int score;
+    private int line;
 
     public Feedback(){
 
     }
 
     @Builder
-    public Feedback(int score, int fidx, int x, int y){
+    public Feedback(int score, int fidx, int x, int y, int line){
         this.score = score;
         this.fidx = fidx;
         this.x = x;
         this.y = y;
+        this.line = line;
     }
 
 }
