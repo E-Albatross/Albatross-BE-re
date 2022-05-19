@@ -167,7 +167,7 @@ public class ScoreController {
             for (int j = 0; j < userLineSyllableCnt; j++) { //j번째 음절
                 if (Math.abs(userSyllableList.get(i).get(j).get(4) - mid) >= 8 ||
                         (j < userLineSyllableCnt - 1 && Math.abs(userSyllableList.get(i).get(j).get(4) - userSyllableList.get(i).get(j + 1).get(4)) >= 6)) {
-                    score -= 3;
+                    score -= 1;
                     Feedback feedback = new Feedback(score, 1, x1, y1, i);
                     feedbacks.add(feedback);
                     break; //기울기 피드백 하나만 생성
@@ -243,9 +243,11 @@ public class ScoreController {
         for(int i=0; i<4; i++){
             for(int j=0; j<textBookSyllableList.get(i).size(); j++){
                 if(textBookSyllableList.get(i).get(j).get(3)-userSyllableList.get(i).get(j).get(3)>=10
-                    || textBookSyllableList.get(i).get(j).get(3)-userSyllableList.get(i).get(j).get(3)<=(-7)){
+                    || textBookSyllableList.get(i).get(j).get(3)-userSyllableList.get(i).get(j).get(3)<=(-7)
+                    ||textBookSyllableList.get(i).get(j).get(2)-userSyllableList.get(i).get(j).get(2)>=10
+                    || textBookSyllableList.get(i).get(j).get(2)-userSyllableList.get(i).get(j).get(2)<=(-7)){
 
-                    score -= 3;
+                    score -= 1;
                     int x3 = userSyllableList.get(i).get(j).get(0)+userSyllableList.get(i).get(j).get(2)/2;
                     int y3 = userSyllableList.get(i).get(j).get(1)-10;
                     Feedback feedback = new Feedback(score, 3, x3, y3, i);
@@ -274,7 +276,7 @@ public class ScoreController {
                     || (double)(textBookJamoList.get(i).get(j).get(k).get(2)/textBookJamoList.get(i).get(j).get(k).get(3))/
                             (double)(userJamoList.get(i).get(j).get(k).get(2)/userJamoList.get(i).get(j).get(k).get(3))<0.5
                     ){
-                      score -= 1;
+                      score -= 0.5;
                       int x456 = userSyllableList.get(i).get(j).get(0)+userSyllableList.get(i).get(j).get(2)/2;
                       int y456 = userSyllableList.get(i).get(j).get(1)-10;
 
