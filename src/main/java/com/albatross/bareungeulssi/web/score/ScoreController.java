@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.lang.reflect.Array;
 import java.util.*;
 
 import static com.google.gson.JsonParser.parseReader;
@@ -49,7 +51,6 @@ public class ScoreController {
         JsonElement elementUserSyllable = parseString(param.get("syllable").toString()); //"syllable" 키 값으로 찾기 - 음절 정보
         JsonElement elementUserCharacter = parseString(param.get("character").toString()); //"character" 키 값으로 찾기 - 음소 정보
 
-        //TODO. List-> ArrayList?
 
         Map<String, Object> userSyllableMap = gson.fromJson(elementUserSyllable.toString(), Map.class); //"syllable" 키로 찾은 json
         JsonElement userLineZeroSyllable = parseString(userSyllableMap.get("0").toString()); //"0" 키로 찾기
@@ -98,6 +99,7 @@ public class ScoreController {
 
         //DB에서 textBook 정보 불러오기
         TextBook textBook = textBookRepository.findByLiteratureIdAndFontPath(literatureId, fontPath);
+        log.info("textbook literature id: {}", textBook.getLiteratureId());
 
         Map<String, Object> textBookMap= textBook.getTextBookAnalysis();
 
@@ -145,7 +147,13 @@ public class ScoreController {
         textBookJamoList.add(textBookLineThreeJamoList);
 
         int score=100;
+        int midWidth=0;
+        int midHeight=0;
         ArrayList<Integer> cyList = new ArrayList<>();
+        ArrayList<Integer> widthList = new ArrayList<>();
+        ArrayList<Integer> heightList = new ArrayList<>();
+        ArrayList<Integer> midWidthList = new ArrayList<>();
+        ArrayList<Integer> midHeightList = new ArrayList<>();
         //첫번째 줄 음절 점수 계산
         //int userLineZeroSyllableListSize = userLineZeroSyllableList.size();
 
@@ -154,8 +162,19 @@ public class ScoreController {
             int userLineSyllableCnt = userSyllableList.get(i).size();
             for (int j = 0; j < userLineSyllableCnt; j++) { //j번째 음절
                 cyList.add(userSyllableList.get(i).get(j).get(4));
+
+                widthList.add(userSyllableList.get(i).get(j).get(2));
+                heightList.add(userSyllableList.get(i).get(j).get(3));
             }
             cyList.sort(Comparator.naturalOrder()); //오름차순 정렬
+
+            widthList.sort(Comparator.naturalOrder());
+            heightList.sort(Comparator.naturalOrder());
+
+            midWidth = widthList.get(widthList.size()/2);
+            midHeight = heightList.get(heightList.size()/2);
+            midWidthList.add(midWidth);
+            midHeightList.add(midHeight);
 
             int midIdx = cyList.size()/2;
             int mid = cyList.get(midIdx); //cy 중간값
@@ -170,10 +189,17 @@ public class ScoreController {
                     score -= 1;
                     Feedback feedback = new Feedback(score, 1, x1, y1, i);
                     feedbacks.add(feedback);
+                    log.info("feedback: fidx={}::x={}::y={}::line={}", feedback.getFidx(), feedback.getX(), feedback.getY(), feedback.getLine());
                     break; //기울기 피드백 하나만 생성
                 }
             }
+
+            //초기화
             cyList.clear();
+            widthList.clear();
+            heightList.clear();
+            midWidth=0;
+            midHeight=0;
         }
 
 
@@ -233,13 +259,45 @@ public class ScoreController {
             }
         }
 
-        //TODO. 3. 이 글자의 전체적인 크기에 주의해서 작성해보세요!
-        //3-1. 폰트 음절 바운딩 박스 개수 != 사용자 글씨 음절 바운딩 박스 개수
-        //1)폰트 음절 바운딩 박스의 x값 기준으로 범위를 설정해서 그 안에 바운딩 박스 몇 개 있는가
-        //2)w가 30 아래면, 좌우로 탐색해서 더 작은 값과 이 w 합치기
-        //1,2 둘 다 해보기 TODO. 2번 먼저 해보기
-        //폰트와의 비교
 
+        //3. 이 글자의 전체적인 크기에 주의해서 작성해보세요!
+        //전체적인 크기에 유의해서 작성해보세요! : 사용자 글씨 w, h 중간값과의 차이
+
+        for(int i=0; i<4; i++) { //i번째 줄
+            int userLineSyllableCnt = userSyllableList.get(i).size();
+            for (int j = 0; j < userLineSyllableCnt; j++) { //j번째 음절
+                widthList.add(userSyllableList.get(i).get(j).get(2));
+                heightList.add(userSyllableList.get(i).get(j).get(3));
+            }
+
+            widthList.sort(Comparator.naturalOrder());
+            heightList.sort(Comparator.naturalOrder());
+
+            midWidth = widthList.get(widthList.size()/2);
+            midHeight = heightList.get(heightList.size()/2);
+            midWidthList.add(midWidth);
+            midHeightList.add(midHeight);
+
+            for (int j = 0; j < userLineSyllableCnt; j++) { //j번째 음절
+                if (Math.abs(userSyllableList.get(i).get(j).get(2) - midWidth) >= 10 || Math.abs(userSyllableList.get(i).get(j).get(3) - midHeight) >= 10) {
+                    int x3 = userSyllableList.get(i).get(j).get(0)+userSyllableList.get(i).get(j).get(2)/2;
+                    int y3 = userSyllableList.get(i).get(j).get(1)-10;
+                    score -= 1;
+                    Feedback feedback = new Feedback(score, 1, x3, y3, i);
+                    feedbacks.add(feedback);
+                    log.info("feedback: fidx={}::x={}::y={}::line={}", feedback.getFidx(), feedback.getX(), feedback.getY(), feedback.getLine());
+                }
+            }
+
+            //초기화
+            cyList.clear();
+            widthList.clear();
+            heightList.clear();
+            midWidth=0;
+            midHeight=0;
+        }
+
+        /*
         for(int i=0; i<4; i++){
             for(int j=0; j<textBookSyllableList.get(i).size(); j++){
                 if(textBookSyllableList.get(i).get(j).get(3)-userSyllableList.get(i).get(j).get(3)>=10
@@ -254,7 +312,7 @@ public class ScoreController {
                     feedbacks.add(feedback);
                 }
             }
-        }
+        }*/
 
         //TODO. 4,5,6 폰트/사용자 자음, 모음, 받침 비율 >임계값 -> feedback에 저장
         //TODO. 4. 이 글자의 자음에 주의해서 작성해보세요!
@@ -276,12 +334,13 @@ public class ScoreController {
                     || (double)(textBookJamoList.get(i).get(j).get(k).get(2)/textBookJamoList.get(i).get(j).get(k).get(3))/
                             (double)(userJamoList.get(i).get(j).get(k).get(2)/userJamoList.get(i).get(j).get(k).get(3))<0.5
                     ){
-                      score -= 0.5;
+                      score -= 1;
                       int x456 = userSyllableList.get(i).get(j).get(0)+userSyllableList.get(i).get(j).get(2)/2;
                       int y456 = userSyllableList.get(i).get(j).get(1)-10;
 
                       Feedback feedback = new Feedback(score, k+4, x456, y456, i);
                       feedbacks.add(feedback);
+                      log.info("feedback: fidx={}::x={}::y={}::line={}", feedback.getFidx(), feedback.getX(), feedback.getY(), feedback.getLine());
                     }
                 }
             }
@@ -294,14 +353,18 @@ public class ScoreController {
         if(score<0){ //음수일때
             score=0;
             feedbacks.add(new Feedback(0,-1,-1,-1,-1));
+            log.info("feedback: {}", 100);
         }
         else if(score==100){ //100점일때
             //score=100;
             feedbacks.add(new Feedback(100,-1,-1,-1,-1));
+            log.info("feedback: {}", 100);
         }
 
         //점수 DB에 저장
         recordRepository.updateScore(score, imageName);
+
+        log.info("score: {}", score);
 
         String json = gson.toJson(feedbacks);
         feedbacks.clear();
