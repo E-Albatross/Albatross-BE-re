@@ -178,6 +178,7 @@ public class ScoreController {
 
             int midIdx = cyList.size()/2;
             int mid = cyList.get(midIdx); //cy 중간값
+
             log.info("middle cy: {}", mid);
 
             int x1 = userSyllableList.get(i).get(userLineSyllableCnt-1).get(0)+userSyllableList.get(i).get(userLineSyllableCnt-1).get(2)+20; //마지막 음절의 x좌표 + 20
@@ -186,7 +187,7 @@ public class ScoreController {
             for (int j = 0; j < userLineSyllableCnt; j++) { //j번째 음절
                 if (Math.abs(userSyllableList.get(i).get(j).get(4) - mid) >= 8 ||
                         (j < userLineSyllableCnt - 1 && Math.abs(userSyllableList.get(i).get(j).get(4) - userSyllableList.get(i).get(j + 1).get(4)) >= 6)) {
-                    score -= 1;
+                    score -= 2;
                     Feedback feedback = new Feedback(score, 1, x1, y1, i);
                     feedbacks.add(feedback);
                     log.info("feedback: fidx={}::x={}::y={}::line={}", feedback.getFidx(), feedback.getX(), feedback.getY(), feedback.getLine());
@@ -265,25 +266,13 @@ public class ScoreController {
 
         for(int i=0; i<4; i++) { //i번째 줄
             int userLineSyllableCnt = userSyllableList.get(i).size();
-            for (int j = 0; j < userLineSyllableCnt; j++) { //j번째 음절
-                widthList.add(userSyllableList.get(i).get(j).get(2));
-                heightList.add(userSyllableList.get(i).get(j).get(3));
-            }
-
-            widthList.sort(Comparator.naturalOrder());
-            heightList.sort(Comparator.naturalOrder());
-
-            midWidth = widthList.get(widthList.size()/2);
-            midHeight = heightList.get(heightList.size()/2);
-            midWidthList.add(midWidth);
-            midHeightList.add(midHeight);
 
             for (int j = 0; j < userLineSyllableCnt; j++) { //j번째 음절
-                if (Math.abs(userSyllableList.get(i).get(j).get(2) - midWidth) >= 10 || Math.abs(userSyllableList.get(i).get(j).get(3) - midHeight) >= 10) {
+                if (Math.abs(userSyllableList.get(i).get(j).get(2) - midWidthList.get(i)) >= 11 || Math.abs(userSyllableList.get(i).get(j).get(3) - midHeightList.get(i)) >= 11) {
                     int x3 = userSyllableList.get(i).get(j).get(0)+userSyllableList.get(i).get(j).get(2)/2;
                     int y3 = userSyllableList.get(i).get(j).get(1)-10;
-                    score -= 1;
-                    Feedback feedback = new Feedback(score, 1, x3, y3, i);
+                    score -= 2;
+                    Feedback feedback = new Feedback(score, 3, x3, y3, i);
                     feedbacks.add(feedback);
                     log.info("feedback: fidx={}::x={}::y={}::line={}", feedback.getFidx(), feedback.getX(), feedback.getY(), feedback.getLine());
                 }
