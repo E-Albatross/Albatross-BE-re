@@ -25,11 +25,12 @@ public class AwsS3Controller {
 //        return awsS3Service.upload(multipartFile,"captured-image");
 //    }
 
-    @PostMapping("/resource/{loginId}/{literatureId}/{imageName}")
-    public AwsS3 upload(@RequestPart(value="file", required = false) MultipartFile multipartFile, @PathVariable String loginId, @PathVariable Long literatureId, @PathVariable String imageName) throws IOException {
+    @PostMapping("/resource/{loginId}/{literatureId}/{page}/{imageName}")
+    public AwsS3 upload(@RequestPart(value="file", required = false) MultipartFile multipartFile, @PathVariable String loginId, @PathVariable Long literatureId, @PathVariable Integer page, @PathVariable String imageName) throws IOException {
         Record record = Record.builder()
                 .loginId(loginId)
                 .literatureId(literatureId)
+                .page(page)
                 .imageName(imageName)
                 .date(LocalDateTime.now())
                 .build();
