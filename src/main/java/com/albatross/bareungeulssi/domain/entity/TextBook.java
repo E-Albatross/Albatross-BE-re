@@ -26,6 +26,9 @@ public class TextBook {
     @Column(name = "literature_id", nullable = false)
     private Long literatureId;
 
+    @Column(name = "page")
+    private Integer page;
+
     @Column(name = "font_path", nullable = false)
     private String fontPath;
 

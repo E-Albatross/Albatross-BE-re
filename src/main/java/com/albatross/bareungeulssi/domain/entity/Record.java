@@ -26,6 +26,9 @@ public class Record { //쓴 거 저장
     @Column(name="literature_id", nullable = false)
     private Long literatureId;
 
+    @Column(name="page")
+    private Integer page;
+
     @Column(name = "image_name")
     private String imageName;
 
@@ -36,9 +39,10 @@ public class Record { //쓴 거 저장
     private Integer score;
 
     @Builder
-    public Record(String loginId, Long literatureId, String imageName, LocalDateTime date, Integer score){
+    public Record(String loginId, Long literatureId, Integer page, String imageName, LocalDateTime date, Integer score){
         this.loginId = loginId;
         this.literatureId = literatureId;
+        this.page = page;
         this.imageName=imageName;
         this.date=date;
         this.score=score;
