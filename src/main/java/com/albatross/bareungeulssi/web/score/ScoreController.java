@@ -207,7 +207,7 @@ public class ScoreController {
                     int midIdx = cyList.size() / 2;
                     int mid = cyList.get(midIdx); //cy 중간값
 
-                    log.info("middle cy: {}", mid);
+                    //log.info("middle cy: {}", mid);
 
                     int x1 = userSyllableList.get(i).get(userLineSyllableCnt - 1).get(0) + userSyllableList.get(i).get(userLineSyllableCnt - 1).get(2) + 20; //마지막 음절의 x좌표 + 20
                     int y1 = userSyllableList.get(i).get(userLineSyllableCnt - 1).get(4); //마지막 음절의 cy좌표
@@ -218,7 +218,7 @@ public class ScoreController {
                             score -= 2;
                             Feedback feedback = new Feedback(score, 1, x1, y1, i);
                             feedbacks.add(feedback);
-                            log.info("feedback: fidx={}::x={}::y={}::line={}", feedback.getFidx(), feedback.getX(), feedback.getY(), feedback.getLine());
+                            //log.info("feedback: fidx={}::x={}::y={}::line={}", feedback.getFidx(), feedback.getX(), feedback.getY(), feedback.getLine());
                             break; //기울기 피드백 하나만 생성
                         }
                     }
@@ -301,7 +301,7 @@ public class ScoreController {
                         score -= 2;
                         Feedback feedback = new Feedback(score, 3, x3, y3, i);
                         feedbacks.add(feedback);
-                        log.info("feedback: fidx={}::x={}::y={}::line={}", feedback.getFidx(), feedback.getX(), feedback.getY(), feedback.getLine());
+                        //log.info("feedback: fidx={}::x={}::y={}::line={}", feedback.getFidx(), feedback.getX(), feedback.getY(), feedback.getLine());
                     }
                 }
 
@@ -336,7 +336,10 @@ public class ScoreController {
                 int range = Math.min(userJamoList.get(i).size(), textBookJamoList.get(i).size());
                 for (int j = 0; j < range; j++) {
 
-                    if (!userJamoList.get(i).get(j).get(2).get(0).equals(textBookJamoList.get(i).get(j).get(2).get(0))) {
+                    /*if (!userJamoList.get(i).get(j).get(2).get(0).equals(textBookJamoList.get(i).get(j).get(2).get(0))) {
+                        continue;
+                    }*/
+                    if (textBookJamoList.get(i).get(j).get(2).get(0)==-1 || userJamoList.get(i).get(j).get(2).get(0)==-1) {
                         continue;
                     }
 
@@ -354,7 +357,7 @@ public class ScoreController {
 
                             Feedback feedback = new Feedback(score, k + 4, x456, y456, i);
                             feedbacks.add(feedback);
-                            log.info("feedback: fidx={}::x={}::y={}::line={}", feedback.getFidx(), feedback.getX(), feedback.getY(), feedback.getLine());
+                            //log.info("feedback: fidx={}::x={}::y={}::line={}", feedback.getFidx(), feedback.getX(), feedback.getY(), feedback.getLine());
                         }
                     }
                 }
